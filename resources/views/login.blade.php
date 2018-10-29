@@ -2,7 +2,7 @@
 <html lang="en">
 
   <head>
-
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -28,17 +28,17 @@
       <div class="card card-login mx-auto mt-5">
         <div class="card-header">Login</div>
         <div class="card-body">
-          <form>
+          <form id="form_login" method="post" action="{{route('login')}}">
             <div class="form-group">
               <div class="form-label-group">
-                <input type="email" id="inputEmail" class="form-control" placeholder="Email address" required="required" autofocus="autofocus">
-                <label for="inputEmail">Email address</label>
+                <input type="text" id="account" name="account" class="form-control" placeholder="Account" required="required" autofocus="autofocus">
+                <label for="account">Account</label>
               </div>
             </div>
             <div class="form-group">
               <div class="form-label-group">
-                <input type="password" id="inputPassword" class="form-control" placeholder="Password" required="required">
-                <label for="inputPassword">Password</label>
+                <input type="password" id="password" name="password" class="form-control" placeholder="Password" required="required">
+                <label for="password">Password</label>
               </div>
             </div>
             <div class="form-group">
@@ -49,12 +49,8 @@
                 </label>
               </div>
             </div>
-            <a class="btn btn-primary btn-block" href="index.html">Login</a>
+            <a class="btn btn-primary btn-block" href="javascript:form_submit()">Login</a>
           </form>
-          <div class="text-center">
-            <a class="d-block small mt-3" href="register.html">Register an Account</a>
-            <a class="d-block small" href="forgot-password.html">Forgot Password?</a>
-          </div>
         </div>
       </div>
     </div>
@@ -69,3 +65,28 @@
   </body>
 
 </html>
+<script type="text/javascript">
+  function form_submit(){
+    var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
+    var formData = {
+                _token    : CSRF_TOKEN,
+                account   : $('#account').val(),
+                password  : $('#password').val(),
+    }
+    if(!account==""&&!password==""){
+      $.ajax({
+        url: $('#form_login').attr('action'),
+        type: 'POST',
+        data: formData,
+        dataType: 'JSON',
+        success: function (data) { 
+          alert(data); 
+        },
+        error: function (data) {
+          alert(data.responseText);
+        }
+      }); 
+    }
+  }
+
+</script>

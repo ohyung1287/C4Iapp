@@ -1,11 +1,12 @@
 @extends('layout')
 @section('index-content')
+
  <div class="container card mb-3">
       <div class="card-body">
         <div class="float-right" style="margin-bottom: 5%">
           <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal_add">Add</button>
-          <button type="button" class="btn btn-warning" >Update</button>
-          <button type="button" class="btn btn-danger" >Remove</button>
+          <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#modal_update">Update</button>
+          <button type="button" class="btn btn-danger">Remove</button>
         </div>
         <div class="table-responsive">
           <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
@@ -13,43 +14,29 @@
               <tr>
                 <th></th>
                 <th>Name</th>
-                <th>Address</th>
-                <th>Password</th>
+                <th>Room Number</th>
                 <th>Phone</th>
+                <th>Mobile</th>
                 <th>Email</th>
               </tr>
             </thead>
             <tbody>
+              @foreach($residents as $one)
               <tr>
-                <td><input type="checkbox" class="form-control" name=""></td>
-                <td>Tiger Nixon</td>
-                <td>10-123</td>
-                <td>rock12234</td>
-                <td>4162001234</td>
-                <td>Triger1234@gmail.com</td>
+                <td><input id="resident_{{$one->id}}" type="checkbox" class="form-control" name=""></td>
+                <td>{{$one->name}}</td>
+                <td>{{$one->roomid}}</td>
+                <td>{{$one->phone}}</td>
+                <td>{{$one->mobile}}</td>
+                <td>{{$one->email}}</td>
               </tr>
-              <tr>
-                <td><input type="checkbox" class="form-control" name=""></td>
-                <td>Garrett Winters</td>
-                <td>10-5</td>
-                <td>!@#123456</td>
-                <td>6479871468</td>
-                <td>DD@gmail.com</td>
-              </tr>
-              <tr>
-                <td><input type="checkbox" class="form-control" name=""></td>
-                <td>Ashton Cox</td>
-                <td>Junior Technical Author</td>
-                <td>zzz123123</td>
-                <td>4658796541</td>
-                <td>cc@gmail.com</td>
-              </tr>
+              @endforeach
             </tbody>
           </table>
         </div>
       </div>
   </div>
-    <div class="modal" id="modal_add">
+  <div class="modal" id="modal_add">
     <div class="modal-dialog">
       <div class="modal-content">
       
@@ -60,64 +47,166 @@
         </div>
         
         <!-- Modal body -->
+        <form id="form_add" method="post" action="{{route('add_resident')}}">
         <div class="modal-body">
-          <form id="form_add" method="post" action="{{route('add_resident')}}">
+            {{csrf_field()}}
             <div class="form-group">
-              <label for="add_name">Name</label>
-              <input type="text" class="form-control" id="add_name"  placeholder="Name">
+              <label>Name</label>
+              <input type="text" class="form-control" name="name"  placeholder="Name">
             </div>
             <div class="form-group">
-              <label for="add_email">Email address</label>
-              <input type="email" class="form-control" id="add_email" placeholder="Enter email">
+              <label>Email address</label>
+              <input type="email" class="form-control" name="email" placeholder="Enter email">
             </div>
             <div class="form-group">
-              <label for="add_password">Password</label>
-              <input type="text" class="form-control" id="add_password" placeholder="Password">
+              <label>Room Id</label>
+              <input type="number" class="form-control" name="roomid" placeholder="Room Id">
             </div>
             <div class="form-group">
-              <label for="add_address">Civic address</label>
-              <input type="text" class="form-control" id="add_address" placeholder="Civic address">
+              <label>Moblie</label>
+              <input type="number" class="form-control" name="mobile" placeholder="Mobile">
             </div>            
             <div class="form-group">
-              <label for="add_phone">Phone</label>
-              <input type="text" class="form-control" id="add_phone" placeholder="Phone">
+              <label>Phone</label>
+              <input type="number" class="form-control" name="phone" placeholder="Phone">
             </div>
-          </form>
         </div>
-        
         <!-- Modal footer -->
         <div class="modal-footer">          
           <button type="button" id="btn_add" class="btn btn-primary">Submit</button>
           <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
         </div>
-        
+        </form>
       </div>
     </div>
   </div>
+<div class="modal" id="modal_update">
+    <div class="modal-dialog">
+      <div class="modal-content">
+      
+        <!-- Modal Header -->
+        <div class="modal-header">
+          <h4 id="update_title" class="modal-title"></h4>
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+        </div>
+        
+        <!-- Modal body -->
+        <form id="form_update" method="post" action="{{route('update_resident')}}">
+        <div class="modal-body">
+            {{csrf_field()}}
+            <div class="form-group">
+              <label>Select a resident to update</label>
+              <select id="update_id" name="id" placeholder="Select a resident">
+                  <option value=""></option>
 
+                @foreach($residents as $one)
+                  <option value="{{$one->id}}">{{$one->name}}</option>
+                @endforeach
+              </select>
+            </div>
+            <div class="form-group">
+              <label>Name</label>
+              <input id="update_name" type="text" class="form-control" name="name" placeholder="Enter name">
+            </div>
+            <div class="form-group">
+              <label>Email address</label>
+              <input id="update_email" type="email" class="form-control" name="email" placeholder="Enter email">
+            </div>
+            <div class="form-group">
+              <label>Room Number</label>
+              <select id="roomid" name="roomid">
+                  <option value=""></option>
+                @foreach($rooms as $room)
+                  <option value="{{$room->id}}">{{$room->roomnumber}}</option>
+                @endforeach
+              </select>
+            </div>
+            <div class="form-group">
+              <label>Moblie</label>
+              <input id="update_mobile" type="number" class="form-control" name="mobile" placeholder="Mobile">
+            </div>            
+            <div class="form-group">
+              <label>Phone</label>
+              <input id="update_phone" type="number" class="form-control" name="phone" placeholder="Phone">
+            </div>
+        </div>
+        <!-- Modal footer -->
+        <div class="modal-footer">          
+          <button type="button" id="btn_update" class="btn btn-primary">Update</button>
+          <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+        </div>
+        </form>
+      </div>
+    </div>
+  </div>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
 
+
   <script type="text/javascript">
-  $(document).on('click','#btn_add',function(){
-    alert(1);
-    $("#form_add").submit(function(e) {
-        var form = $(this);
-        var url = form.attr('action');
-        alert(url);
-        $.ajax({
-               type: "POST",
-               url: url,
-               data: form.serialize(), // serializes the form's elements.
-               success: function(data)
-               {
-                   alert(data); // show response from the php script.
-               }
-             });
-
-        alert(e.preventDefault()); // avoid to execute the actual submit of the form.
-    });
+  $(document).ready(function(){
+    $('#li_resident').addClass('active'); 
+    // $("#update_id").select2();
   });
+  $(document).on('change','#update_id',function(){
+    <?php foreach ($residents as $resident): ?>
+      if({{$resident->id}}==$('#update_id').val()){
+        $('#update_name').val('{{$resident->name}}');
+        $('#update_email').val('{{$resident->email}}');
+        $('#update_phone').val('{{$resident->phone}}');
+        $('#update_mobile').val('{{$resident->mobile}}');
+        $('#update_room').val('{{$resident->roomid}}'); 
+      }      
+    <?php endforeach ?>
 
+  });
+  $(document).on('click','#btn_add',function(){
+      var form = $('#form_add');
+      var url = form.attr('action');
+      $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+      });
+      console.log(form.serialize());
+      $.ajax({
+        type: "POST",
+        url: url,
+        data: form.serialize(), // serializes the form's elements.
+        success: function(data)
+        {
+          $('#modal_add').modal('hide');
+          location.reload();
+        },
+        error: function (data) {
+          alert('error');
+          console.log(data);
+        }
+      });
+  });
+  $(document).on('click','#btn_update',function(){
+      var form = $('#form_update');
+      var url = form.attr('action');
+      $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+      });
+      console.log(form.serialize());
+      $.ajax({
+        type: "POST",
+        url: url,
+        data: form.serialize(), // serializes the form's elements.
+        success: function(data)
+        {
+          $('#modal_update').modal('hide');
+          location.reload();
+        },
+        error: function (data) {
+          alert('error');
+          console.log(data);
+        }
+      });
+  });
 </script>
 @stop
