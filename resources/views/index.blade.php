@@ -156,7 +156,7 @@
               </div>
               <div class="mr-5">Packages</div>
             </div>
-            <a class="card-footer text-white clearfix small z-1" href="#">
+            <a class="card-footer text-white clearfix small z-1" href="{{route('package')}}">
               <span class="float-left">View Details</span>
               <span class="float-right">
                 <i class="fas fa-angle-right"></i>

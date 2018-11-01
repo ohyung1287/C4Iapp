@@ -26,3 +26,5 @@ Route::get('/room',['as'=>'room','uses'=>'ResidentController@room']);
 Route::post('/resident/add/resident',['as'=>'add_resident','uses'=>'ResidentController@add_resident']);
 Route::post('/resident/add/room',['as'=>'add_room','uses'=>'ResidentController@add_room']);
 Route::post('/resident/update',['as'=>'update_resident','uses'=>'ResidentController@update_resident']);
+
+Route::get('/package',['as'=>'package','uses'=>'PackageController@index']);
