@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateResidentsTable extends Migration
+class CreateLostFoundsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,14 +13,19 @@ class CreateResidentsTable extends Migration
      */
     public function up()
     {
-        Schema::create('residents', function (Blueprint $table) {
+        Schema::create('lost_founds', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name');
-            $table->integer('roomid');
-            $table->integer('phone')->nullable();
-            $table->integer('mobile')->nullable();
+            $table->integer('roomId')->unsigned();
             $table->string('email')->nullable();
+            $table->string('subject');
+            $table->string('title');
+            $table->string('message');
             $table->timestamps();
+        });
+
+        Schema::table('lost_founds', function($table) {
+          $table->foreign('roomId')->references('id')->on('rooms')->onDelete('cascade');
         });
     }
 
@@ -31,6 +36,6 @@ class CreateResidentsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('residents');
+        Schema::dropIfExists('lost_founds');
     }
 }
