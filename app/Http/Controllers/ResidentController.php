@@ -40,7 +40,7 @@ class ResidentController extends Controller
         Residents::where('id', $request->id)
           ->update(['name' => $request->name,'roomid' => $request->roomid,'email' => $request->email,
             'mobile' => $request->mobile,'phone' => $request->phone]);
-        // return redirect('index');
+        return "hello";
     }
 
 

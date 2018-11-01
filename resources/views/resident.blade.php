@@ -6,7 +6,7 @@
         <div class="float-right" style="margin-bottom: 5%">
           <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal_add">Add</button>
           <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#modal_update">Update</button>
-          <button type="button" class="btn btn-danger">Remove</button>
+          <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#modal_delete">Remove</button>
         </div>
         <div class="table-responsive">
           <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
@@ -96,7 +96,7 @@
             {{csrf_field()}}
             <div class="form-group">
               <label>Select a resident to update</label>
-              <select id="update_id" name="id" placeholder="Select a resident">
+              <select id="update_id" name="id" placeholder="Select a resident" style="width: 300px;">
                   <option value=""></option>
 
                 @foreach($residents as $one)
@@ -139,6 +139,27 @@
       </div>
     </div>
   </div>
+    <div class="modal" id="modal_delete">
+    <div class="modal-dialog">
+      <div class="modal-content">
+      
+        <!-- Modal Header -->
+        <div class="modal-header">
+          <h4 class="modal-title">Are you sure to delete those residents?</h4>
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+        </div>
+        
+        <!-- Modal body -->
+        <form id="form_add" method="post" action="{{route('add_resident')}}">
+          <input type="number" value="" hidden>
+        </form>
+        <div class="modal-footer">          
+          <button type="button" id="btn_update" class="btn btn-primary">Update</button>
+          <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
 
@@ -146,15 +167,29 @@
   <script type="text/javascript">
   $(document).ready(function(){
     $('#li_resident').addClass('active'); 
-    // $("#update_id").select2();
+    $("#update_id").select2();
   });
-  $(document).on('change','#update_id',function(){
+  $('#update_id').on('change', function (e) {
     <?php foreach ($residents as $resident): ?>
       if({{$resident->id}}==$('#update_id').val()){
         $('#update_name').val('{{$resident->name}}');
         $('#update_email').val('{{$resident->email}}');
         $('#update_phone').val('{{$resident->phone}}');
         $('#update_mobile').val('{{$resident->mobile}}');
+        
+        $('#update_room').val('{{$resident->roomid}}'); 
+      }      
+    <?php endforeach ?>
+});
+  $(document).on('select2:select','#update_id',function(){
+    alert(1);
+    <?php foreach ($residents as $resident): ?>
+      if({{$resident->id}}==$('#update_id').val()){
+        $('#update_name').val('{{$resident->name}}');
+        $('#update_email').val('{{$resident->email}}');
+        $('#update_phone').val('{{$resident->phone}}');
+        $('#update_mobile').val('{{$resident->mobile}}');
+        
         $('#update_room').val('{{$resident->roomid}}'); 
       }      
     <?php endforeach ?>
@@ -199,6 +234,7 @@
         data: form.serialize(), // serializes the form's elements.
         success: function(data)
         {
+          alert(data);
           $('#modal_update').modal('hide');
           location.reload();
         },
