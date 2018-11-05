@@ -66,6 +66,48 @@
       </div>
     </div>
   </div>
+    <div class="modal" id="modal_update">
+    <div class="modal-dialog">
+      <div class="modal-content">
+      
+        <!-- Modal Header -->
+        <div class="modal-header">
+          <h4 class="modal-title">Update a room</h4>
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+        </div>
+        
+        <!-- Modal body -->
+        <form id="form_add" method="post" action="{{route('update_room')}}">
+        <div class="modal-body">
+            {{csrf_field()}}
+            <div class="form-group">
+            <label>Select a room to update</label>
+              <select id="update_id" name="id" placeholder="Select a room" style="width: 300px;">
+                  <option value=""></option>
+
+                @foreach($rooms as $one)
+                  <option value="{{$one->id}}">{{$one->roomnumber}}</option>
+                @endforeach
+              </select>
+            </div>
+            <div class="form-group">
+              <label>Room number</label>
+              <input type="text" class="form-control" id="update_roomnumber" name="roomnumber" placeholder="Room number">
+            </div>
+            <div class="form-group">
+              <label>Square meter</label>
+              <input type="number" class="form-control" id="update_size" name="size" placeholder="Square meter">
+            </div>
+        </div>
+        <!-- Modal footer -->
+        <div class="modal-footer">          
+          <button type="button" id="btn_add" class="btn btn-primary">Submit</button>
+          <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+        </div>
+        </form>
+      </div>
+    </div>
+  </div>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
 
@@ -75,6 +117,15 @@
     $('#li_rooms').addClass('active'); 
     // $("#update_id").select2();
   });
+  $('#update_id').on('change', function (e) {
+    <?php foreach ($rooms as $room): ?>
+      if({{$room->id}}==$('#update_id').val()){
+        
+        $('#update_size').val('{{$room->size}}');
+        $('#update_roomnumber').val('{{$room->roomnumber}}'); 
+      }      
+    <?php endforeach ?>
+});
   $(document).on('click','#btn_add',function(){
       var form = $('#form_add');
       var url = form.attr('action');

@@ -12,6 +12,9 @@
     <title>C4I</title>
 
     <!-- Bootstrap core CSS-->
+
+
+   
     <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
     <!-- Custom fonts for this template-->
@@ -25,7 +28,49 @@
 
     <!-- Custom styles for this template-->
     <link href="css/sb-admin.css" rel="stylesheet">
+<style>
+#mysnackbar {
+    visibility: hidden;
+    min-width: 250px;
+    margin-left: -125px;
+    background-color: #333;
+    color: #fff;
+    text-align: center;
+    border-radius: 2px;
+    padding: 16px;
+    position: fixed;
+    z-index: 1;
+    left: 50%;
+    bottom: 30px;
+    font-size: 17px;
+}
 
+#mysnackbar.show {
+    visibility: visible;
+    -webkit-animation: fadein 0.5s, fadeout 0.5s 2.5s;
+    animation: fadein 0.5s, fadeout 0.5s 2.5s;
+}
+
+@-webkit-keyframes fadein {
+    from {bottom: 0; opacity: 0;} 
+    to {bottom: 30px; opacity: 1;}
+}
+
+@keyframes fadein {
+    from {bottom: 0; opacity: 0;}
+    to {bottom: 30px; opacity: 1;}
+}
+
+@-webkit-keyframes fadeout {
+    from {bottom: 30px; opacity: 1;} 
+    to {bottom: 0; opacity: 0;}
+}
+
+@keyframes fadeout {
+    from {bottom: 30px; opacity: 1;}
+    to {bottom: 0; opacity: 0;}
+}
+</style>
   </head>
 
   <body id="page-top">
@@ -82,6 +127,8 @@
 </ul>
 
 @yield('index-content')
+
+<div id="mysnackbar"></div>
       <footer class="sticky-footer">
           <div class="container my-auto">
             <div class="copyright text-center my-auto">
@@ -141,3 +188,11 @@
   </body>
 
 </html>
+<script type="text/javascript">
+  function snackbar(text){
+    $('#mysnackbar').attr('class','show');
+      $('#mysnackbar').html(text);
+      setTimeout(function(){  $('#mysnackbar').attr('class','');}, 3000);
+  }
+
+</script>
