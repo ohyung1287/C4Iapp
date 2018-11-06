@@ -36,3 +36,7 @@ Route::get('/package',['as'=>'package','uses'=>'PackageController@index']);
 Route::get('/visitor',['as'=>'visitor','uses'=>'VisitorController@index']);
 Route::post('/visitor/add/visitor',['as'=>'addVisitor','uses'=>'VisitorController@addVisitor']);
 Route::post('/visitor/search/visitor',['as'=>'searchVisitor','uses'=>'VisitorController@searchVisitor']);
+
+Route::get('repair','pageController@getRepair');
+Route::get('services','PostsController@services');
+Route::resource('posts','PostsController');
