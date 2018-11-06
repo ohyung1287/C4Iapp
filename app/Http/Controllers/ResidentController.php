@@ -26,7 +26,7 @@ class ResidentController extends Controller
     	return view('room',['rooms'=>$rooms]);
     }
     public function add_resident(Request $request){
-        // Log::notice($request);
+        Log::notice($request);
     	$resident = new Residents;
         $resident->name=$request->name;
         $resident->roomid=$request->roomid;
@@ -36,38 +36,19 @@ class ResidentController extends Controller
         $resident->save();
     }
     public function update_resident(Request $request){
-        // Log::notice($request->all());
+        Log::notice($request);
         Residents::where('id', $request->id)
           ->update(['name' => $request->name,'roomid' => $request->roomid,'email' => $request->email,
             'mobile' => $request->mobile,'phone' => $request->phone]);
-        return "hello";
+        // return redirect('index');
     }
-    public function delete_resident(Request $request){
-        // Log::notice($request->all());
-        $list=explode(',',$request->remove_list);
-        foreach($list as $one){
-            Residents::where('id', $one)->delete();
-        }
-        return "Residents has been remove.";
-    }
+
+
     public function add_room(Request $request){
         $room = new Rooms;
         $room->roomnumber=$request->roomnumber;
         $room->size=$request->size;
         $room->save();
-    }
-    public function update_room(Request $request){
-        Residents::where('id', $request->id)
-          ->update(['name' => $request->name,'roomid' => $request->roomid,'email' => $request->email,
-            'mobile' => $request->mobile,'phone' => $request->phone]);
-        return "hello";
-    }
-    public function delete_room(Request $request){
-        // Log::notice($request->all());
-        $list=explode(',',$request->remove_list);
-        foreach($list as $one){
-            Residents::where('id', $one)->delete();
-        }
-        return "Residents has been remove.";
+
     }
 }
