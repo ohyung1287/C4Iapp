@@ -119,6 +119,11 @@
       <i class="fas fa-user"></i>
       <span>Resident list</span></a>
   </li>
+         <li id="li_resident" class="nav-item">
+             <a class="nav-link" href="{{route('visitor')}}">
+                 <i class="fas fa-user"></i>
+                 <span>Visitors list</span></a>
+         </li>
   <li id="li_rooms" class="nav-item">
     <a class="nav-link" href="{{route('room')}}">
       <i class="fas fa-door-open"></i>

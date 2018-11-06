@@ -31,3 +31,8 @@ Route::get('/resident/delete/resident',['as'=>'delete_resident','uses'=>'Residen
 Route::get('/resident/delete/room',['as'=>'delete_room','uses'=>'ResidentController@delete_room']);
 
 Route::get('/package',['as'=>'package','uses'=>'PackageController@index']);
+
+//Dorothy Hao
+Route::get('/visitor',['as'=>'visitor','uses'=>'VisitorController@index']);
+Route::post('/visitor/add/visitor',['as'=>'addVisitor','uses'=>'VisitorController@addVisitor']);
+Route::post('/visitor/search/visitor',['as'=>'searchVisitor','uses'=>'VisitorController@searchVisitor']);
