@@ -23,7 +23,7 @@
             <tbody>
               @foreach($packages as $one)
               <tr>
-                <td><input id="package_{{$one->id}}" type="checkbox" class="form-control" name=""></td>
+                <td><input id="package_{{$one->id}}" type="checkbox" class="form-control" name=""></td> 
                 <td>{{$one->roomId}}</td>
                 <td>{{$one->date}}</td>
                 <td>{{$one->packageName}}</td>
