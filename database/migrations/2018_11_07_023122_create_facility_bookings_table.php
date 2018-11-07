@@ -15,6 +15,7 @@ class CreateFacilityBookingsTable extends Migration
     {
         Schema::create('facility_bookings', function (Blueprint $table) {
             $table->increments('id');
+            $table->string('roomNumber');
             $table->string('facility_name');
             $table->double('duration');
             $table->double('fee');
