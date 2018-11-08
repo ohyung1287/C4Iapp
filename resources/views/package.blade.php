@@ -23,7 +23,7 @@
             <tbody>
               @foreach($packages as $one)
               <tr>
-                <td><input id="package_{{$one->id}}" type="checkbox" class="form-control" name=""></td> 
+                <td><input id="package_{{$one->id}}" type="checkbox" class="form-control" name=""></td>
                 <td>{{$one->roomId}}</td>
                 <td>{{$one->date}}</td>
                 <td>{{$one->packageName}}</td>
@@ -42,33 +42,48 @@
 
         <!-- Modal Header -->
         <div class="modal-header">
-          <h4 class="modal-title">Adding new resident</h4>
+          <h4 class="modal-title">Adding new packge</h4>
           <button type="button" class="close" data-dismiss="modal">&times;</button>
         </div>
 
         <!-- Modal body -->
-        <form id="form_add" method="post" action="{{route('add_resident')}}">
+        <form id="form_add" method="post" action="{{route('add_package')}}">
         <div class="modal-body">
             {{csrf_field()}}
             <div class="form-group">
-              <label>Name</label>
-              <input type="text" class="form-control" name="name"  placeholder="Name">
+              <label>Room Num</label>
+              <select name="RoomId">
+                  <option value="Select Room"></option>
+
+                @foreach($rooms as $room)
+                  <option value="{{$room->id}}">{{$room->roomnumber}}</option>
+                @endforeach
+              </select>
             </div>
             <div class="form-group">
-              <label>Email address</label>
-              <input type="email" class="form-control" name="email" placeholder="Enter email">
+              <label>Package Name</label>
+              <input type="text" class="form-control" name="packageName" placeholder="Name on Package">
             </div>
             <div class="form-group">
-              <label>Room Id</label>
-              <input type="number" class="form-control" name="roomid" placeholder="Room Id">
+              <label>Package Info</label>
+              <input type="text" class="form-control" name="packageInfo" placeholder="Package Info">
             </div>
             <div class="form-group">
-              <label>Moblie</label>
-              <input type="number" class="form-control" name="mobile" placeholder="Mobile">
+              <label>Mailbox</label>
+              <select name="mailbox" >
+                <option value="Select Avaliable Mailbox"></option>
+                @foreach($mailbox as $mbox)
+                  <option value="{{$mbox->id}}">{{$mbox->id}}</option>
+                @endforeach
+              </select>
             </div>
             <div class="form-group">
-              <label>Phone</label>
-              <input type="number" class="form-control" name="phone" placeholder="Phone">
+              <label>mailbox PW</label>
+              <input type="number" class="form-control" name="mailboxPW">
+            </div>
+            <div class="form-group">
+              <label>Date</label>
+              <input type="date" class="form-control" name="date">
             </div>
         </div>
         <!-- Modal footer -->

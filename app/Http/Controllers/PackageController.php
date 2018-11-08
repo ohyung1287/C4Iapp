@@ -13,9 +13,11 @@ class PackageController extends Controller
     //
     public function index(){
       $packages = Packages::get();
+      $rooms=Rooms::get();
+      $mailbox=Mailbox::where('available',0)->get();
+      $residents=Residents::get();
 
-
-      return view('package',['packages'=>$packages]);
+      return view('package',['residents'=>$residents,'packages'=>$packages,'rooms'=>$rooms,'mailbox'=>$mailbox]);
     }
 
 
@@ -29,7 +31,6 @@ class PackageController extends Controller
         $package->mailboxPW=$request->mailboxPW;
         $package->save();
     }
-
 
 
     public function add_mailbox(Request $request){
