@@ -17,6 +17,7 @@
                 <th>Phone</th>
                 <th>Mobile</th>
                 <th>Email</th>
+                <th>Account</th>
               </tr>
             </thead>
             <tbody>
@@ -28,6 +29,11 @@
                 <td>{{$one->phone}}</td>
                 <td>{{$one->mobile}}</td>
                 <td>{{$one->email}}</td>
+                @if($one->isactivity)
+                <td>Activity!</td>
+                @else
+                <td>No</td>
+                @endif
               </tr>
               @endforeach
             </tbody>
