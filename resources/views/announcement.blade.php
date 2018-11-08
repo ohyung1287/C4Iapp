@@ -12,22 +12,18 @@
             <thead>
               <tr>
                 <th></th>
-                <th>Name</th>
-                <th>Room Number</th>
-                <th>Phone</th>
-                <th>Mobile</th>
-                <th>Email</th>
+                <th>Announcement Description</th>
+                <th>Time</th>
+                <th>Date</th>
               </tr>
             </thead>
             <tbody>
-              @foreach($residents as $one)
+              @foreach($announcement as $one)
               <tr>
-                <td><input id="resident_{{$one->id}}" type="checkbox" class="form-control" name="resident[]" value="{{$one->id}}"></td>
-                <td>{{$one->name}}</td>
-                <td>{{$one->roomid}}</td>
-                <td>{{$one->phone}}</td>
-                <td>{{$one->mobile}}</td>
-                <td>{{$one->email}}</td>
+                <td><input id="announcement_{{$one->id}}" type="checkbox" class="form-control" name="announcement[]" value="{{$one->id}}"></td>
+                <td>{{$one->announce_desc}}</td>
+                <td>{{$one->time}}</td>
+                <td>{{$one->date}}</td>
               </tr>
               @endforeach
             </tbody>
@@ -41,33 +37,25 @@
       
         <!-- Modal Header -->
         <div class="modal-header">
-          <h4 class="modal-title">Adding new resident</h4>
+          <h4 class="modal-title">Adding new announcement</h4>
           <button type="button" class="close" data-dismiss="modal">&times;</button>
         </div>
         
         <!-- Modal body -->
-        <form id="form_add" method="post" action="{{route('add_resident')}}">
+        <form id="form_add" method="post" action="{{route('add_announcement')}}">
         <div class="modal-body">
             {{csrf_field()}}
             <div class="form-group">
-              <label>Name</label>
-              <input type="text" class="form-control" name="name"  placeholder="Name">
+              <label>Announcement Description</label>
+              <input type="text" class="form-control" name="announce_desc"  placeholder="Description">
             </div>
             <div class="form-group">
-              <label>Email address</label>
-              <input type="email" class="form-control" name="email" placeholder="Enter email">
+              <label>Time</label>
+              <input type="time" class="form-control" name="time" placeholder="Enter time">
             </div>
             <div class="form-group">
-              <label>Room Id</label>
-              <input type="number" class="form-control" name="roomid" placeholder="Room Id">
-            </div>
-            <div class="form-group">
-              <label>Moblie</label>
-              <input type="number" class="form-control" name="mobile" placeholder="Mobile">
-            </div>            
-            <div class="form-group">
-              <label>Phone</label>
-              <input type="number" class="form-control" name="phone" placeholder="Phone">
+              <label>Date</label>
+              <input type="date" class="form-control" name="date" placeholder="Enter date">
             </div>
         </div>
         <!-- Modal footer -->
@@ -90,43 +78,30 @@
         </div>
         
         <!-- Modal body -->
-        <form id="form_update" method="post" action="{{route('update_resident')}}">
+        <form id="form_update" method="post" action="{{route('update_announcement')}}">
         <div class="modal-body">
             {{csrf_field()}}
             <div class="form-group">
-              <label>Select a resident to update</label>
-              <select id="update_id" name="id" placeholder="Select a resident" style="width: 300px;">
+              <label>Select a announcement to update</label>
+              <select id="update_id" name="id" placeholder="Select a announcement" style="width: 300px;">
                   <option value=""></option>
 
-                @foreach($residents as $one)
-                  <option value="{{$one->id}}">{{$one->name}}</option>
+                @foreach($announcement as $one)
+                  <option value="{{$one->id}}">{{$one->announce_desc}}</option>
                 @endforeach
               </select>
             </div>
             <div class="form-group">
-              <label>Name</label>
-              <input id="update_name" type="text" class="form-control" name="name" placeholder="Enter name">
+              <label>Announcement Description</label>
+              <input id="update_desc" type="text" class="form-control" name="announce_desc" placeholder="Enter description">
             </div>
             <div class="form-group">
-              <label>Email address</label>
-              <input id="update_email" type="email" class="form-control" name="email" placeholder="Enter email">
+              <label>Time</label>
+              <input id="update_time" type="time" class="form-control" name="time" placeholder="Enter time">
             </div>
             <div class="form-group">
-              <label>Room Number</label>
-              <select id="roomid" name="roomid">
-                  <option value=""></option>
-                @foreach($rooms as $room)
-                  <option value="{{$room->id}}">{{$room->roomnumber}}</option>
-                @endforeach
-              </select>
-            </div>
-            <div class="form-group">
-              <label>Moblie</label>
-              <input id="update_mobile" type="number" class="form-control" name="mobile" placeholder="Mobile">
-            </div>            
-            <div class="form-group">
-              <label>Phone</label>
-              <input id="update_phone" type="number" class="form-control" name="phone" placeholder="Phone">
+              <label>Date</label>
+                <input id="update_date" type="date" class="form-control" name="date" placeholder="Enter date">
             </div>
         </div>
         <!-- Modal footer -->
@@ -144,12 +119,12 @@
       
         <!-- Modal Header -->
         <div class="modal-header">
-          <h4 class="modal-title">Are you sure to delete those residents?</h4>
+          <h4 class="modal-title">Are you sure to delete these announcements?</h4>
           <button type="button" class="close" data-dismiss="modal">&times;</button>
         </div>
         
         <!-- Modal body -->
-        <form id="form_delete" method="post" action="{{route('delete_resident')}}">
+        <form id="form_delete" method="post" action="{{route('delete_announcement')}}">
           <input type="text" id="remove_list" name="remove_list" hidden>
         </form>
         <div class="modal-footer">          
@@ -165,32 +140,15 @@
 
   <script type="text/javascript">
   $(document).ready(function(){
-    $('#li_resident').addClass('active'); 
+    $('#li_announcement').addClass('active');
     $("#update_id").select2();
   });
   $('#update_id').on('change', function (e) {
-    <?php foreach ($residents as $resident): ?>
-      if({{$resident->id}}==$('#update_id').val()){
-        $('#update_name').val('{{$resident->name}}');
-        $('#update_email').val('{{$resident->email}}');
-        $('#update_phone').val('{{$resident->phone}}');
-        $('#update_mobile').val('{{$resident->mobile}}');
-        
-        $('#update_room').val('{{$resident->roomid}}'); 
-      }      
-    <?php endforeach ?>
+
 });
   $('#update_id').on('select2:select',function(){
     alert('123123');
-    <?php foreach ($residents as $resident): ?>
-      if({{$resident->id}}==$('#update_id').val()){
-        $('#update_name').val('{{$resident->name}}');
-        $('#update_email').val('{{$resident->email}}');
-        $('#update_phone').val('{{$resident->phone}}');
-        $('#update_mobile').val('{{$resident->mobile}}');
-        $('#update_room').val('{{$resident->roomid}}'); 
-      }      
-    <?php endforeach ?>
+
 
   });
   $(document).on('click','#btn_add',function(){
@@ -244,14 +202,14 @@
   });   
   $(document).on('click','#btn_modal_remove',function(){
     var arr=[];
-    if($('input[name="resident[]"]:checked').length>0){
-      $('input[name="resident[]"]:checked').each(function(){
+    if($('input[name="announcement[]"]:checked').length>0){
+      $('input[name="announcement[]"]:checked').each(function(){
         arr.push($(this).val());
       });
       $('#remove_list').val(arr);
       $('#modal_delete').modal('toggle');
     }else{
-      snackbar('Select at least one resident to remove.');
+      snackbar('Select at least one announcement to remove.');
     }
   });
   $(document).on('click','#btn_delete',function(){

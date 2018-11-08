@@ -36,3 +36,9 @@ Route::get('/package',['as'=>'package','uses'=>'PackageController@index']);
 Route::get('/visitor',['as'=>'visitor','uses'=>'VisitorController@index']);
 Route::post('/visitor/add/visitor',['as'=>'addVisitor','uses'=>'VisitorController@addVisitor']);
 Route::post('/visitor/search/visitor',['as'=>'searchVisitor','uses'=>'VisitorController@searchVisitor']);
+
+//Valerie - Announcement
+Route::get('/announcement',['as'=>'announcement','uses'=>'AnnouncementController@index']);
+Route::post('/announcement/add/announcement',['as'=>'add_announcement','uses'=>'AnnouncementController@add_announcement']);
+Route::post('/announcement/update/announcement',['as'=>'update_announcement','uses'=>'AnnouncementController@update_announcement']);
+Route::get('/announcement/delete/announcement',['as'=>'delete_announcement','uses'=>'AnnouncementController@delete_announcement']);
