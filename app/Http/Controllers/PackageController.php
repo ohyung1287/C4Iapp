@@ -27,9 +27,12 @@ class PackageController extends Controller
         $package->roomId=$request->roomId;
         $package->packageName=$request->packageName;
         $package->packageInfo=$request->packageInfo;
-        $package->mailbox=$request->mailbox;
+        $package->mailboxId=$request->mailbox;
         $package->mailboxPW=$request->mailboxPW;
+        $package->date=$request->date;
         $package->save();
+
+        self::setMailBoxUnAva($request->mailbox,$request->mailboxPW);
     }
 
 
@@ -38,4 +41,22 @@ class PackageController extends Controller
         $mailbox->save();
 
     }
+
+
+    public function setMailBoxUnAva( $mailbox_id,$mailboxPW) {
+        //Log::notice($request);
+        Mailbox::where('id',$mailbox_id)
+          ->update(['available' => 1, 'password' => $mailboxPW]);
+
+    }
+
+    public function setMailBoxAva($mailbox_id) {
+      //Log::notice($request);
+      Mailbox::where('id',$mailbox_id)
+        ->update(['available' => 0, 'password' => NULL]);
+
+    }
+
+
+
 }

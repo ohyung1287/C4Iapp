@@ -18,6 +18,7 @@
                 <th>Package Name</th>
                 <th>Mailbox</th>
                 <th>Mailbox PW</th>
+                <th>Status</th>
               </tr>
             </thead>
             <tbody>
@@ -29,6 +30,11 @@
                 <td>{{$one->packageName}}</td>
                 <td>{{$one->mailboxId}}</td>
                 <td>{{$one->mailboxPW}}</td>
+                @if ($one->status === 1)
+                      <td style="color:red;">Unconfirmed</td>
+                @else
+                      <td style="color:green;">Confirmed Recieved</td>
+                @endif
               </tr>
               @endforeach
             </tbody>
@@ -52,7 +58,7 @@
             {{csrf_field()}}
             <div class="form-group">
               <label>Room Num</label>
-              <select name="RoomId">
+              <select name="roomId">
                   <option value="Select Room"></option>
 
                 @foreach($rooms as $room)
@@ -99,6 +105,30 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
 
-
-
+  <script type="text/javascript">
+    $(document).on('click','#btn_add',function(){
+        var form = $('#form_add');
+        var url = form.attr('action');
+        $.ajaxSetup({
+          headers: {
+              'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+          }
+        });
+        console.log(form.serialize());
+        $.ajax({
+          type: "POST",
+          url: url,
+          data: form.serialize(), // serializes the form's elements.
+          success: function(data)
+          {
+            $('#modal_add').modal('hide');
+            location.reload();
+          },
+          error: function (data) {
+            alert('error');
+            console.log(data);
+          }
+        });
+    });
+</script>
 @stop
