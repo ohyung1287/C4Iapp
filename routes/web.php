@@ -28,6 +28,8 @@ Route::post('/resident/add/room',['as'=>'add_room','uses'=>'ResidentController@a
 Route::post('/resident/update',['as'=>'update_resident','uses'=>'ResidentController@update_resident']);
 
 Route::get('/package',['as'=>'package','uses'=>'PackageController@index']);
+Route::post('/package/add/package',['as'=>'add_package','uses'=>'PackageController@add_package']);
+
 
 Route::get('/visitor',['as'=>'visitor','uses'=>'VisitorController@index']);
 Route::post('/visitor/add/visitor',['as'=>'addVisitor','uses'=>'VisitorController@addVisitor']);
@@ -37,4 +39,3 @@ Route::post('/visitor/search/visitor',['as'=>'searchVisitor','uses'=>'VisitorCon
 Route::get('repair','pageController@getRepair');
 Route::get('services','PostsController@services');
 Route::resource('posts','PostsController');
-

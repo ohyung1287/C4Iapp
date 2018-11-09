@@ -1,3 +1,4 @@
+
 <?php
 
 use Illuminate\Support\Facades\Schema;
@@ -21,6 +22,7 @@ class CreatePackagesTable extends Migration
             $table->integer('mailboxId')->unsigned();
             $table->integer('mailboxPW');
             $table->date('date');
+            $table->boolean('status')->default(1);
             $table->timestamps();
 
 

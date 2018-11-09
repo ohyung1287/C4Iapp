@@ -7,6 +7,6 @@ use Illuminate\Database\Eloquent\Model;
 class Packages extends Model
 {
     //
-    protected $fillable = ['id', 'roomId','packageName','packageInfo','mailboxId','mailboxPW','date'];
+    protected $fillable = ['id', 'roomId','packageName','packageInfo','mailboxId','mailboxPW','date','status'];
 
 }
