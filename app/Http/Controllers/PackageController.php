@@ -21,6 +21,7 @@ class PackageController extends Controller
     }
 
 
+
     public function add_package(Request $request){
         Log::notice($request);
     	  $package = new Packages;
@@ -33,6 +34,31 @@ class PackageController extends Controller
         $package->save();
 
         self::setMailBoxUnAva($request->mailbox,$request->mailboxPW);
+    }
+
+
+    public function update_package(Request $request){
+        Log::notice($request);
+        $mailbox_id_old = $request->mailbox_id_old;
+
+        Packages::where('id', $request->package_id)
+          ->update(['roomId' => $request->roomId,'packageName' => $request->packageName,
+            'packageInfo' =>$request->packageInfo,'mailboxId' =>$request->mailbox,
+            'mailboxPW' =>$request->mailboxPW,'date' =>$request->date]);
+        // return redirect('index');
+        if($request->mailbox != $mailbox_id_old){
+          self::setMailBoxAva($mailbox_id_old);
+          self::setMailBoxUnAva($request->mailbox,$request->mailboxPW);
+
+     }
+    }
+
+    public function remove_package(Request $request){
+        Log::notice($request);
+
+        Packages::where('id',$request->package_id)->delete();
+
+        self::setMailBoxAva($request->mailbox_id);
     }
 
 
