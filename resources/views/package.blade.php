@@ -5,14 +5,12 @@
       <div class="card-body">
         <div class="float-right" style="margin-bottom: 5%">
           <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal_add">Add</button>
-          <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#modal_update">Update</button>
-          <button type="button" class="btn btn-danger">Remove</button>
+
         </div>
         <div class="table-responsive">
           <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
             <thead>
               <tr>
-                <th></th>
                 <th>Room</th>
                 <th>Date</th>
                 <th>Package Name</th>
@@ -24,7 +22,6 @@
             <tbody>
               @foreach($packages as $one)
               <tr>
-                <td><input id="package_{{$one->id}}" type="checkbox" class="form-control" name=""></td>
                 <td>{{$one->roomId}}</td>
                 <td>{{$one->date}}</td>
                 <td>{{$one->packageName}}</td>
@@ -35,6 +32,24 @@
                 @else
                       <td style="color:green;">Confirmed Recieved</td>
                 @endif
+                <td>
+                     <form action="{{route('remove_package')}}" method="post"
+                           id="remove_form">
+
+                         <input type="hidden" name="package_id"
+                                value="{{$one->id}}">
+                         <input type="hidden" name="mailbox_id"
+                                value="{{$one->mailboxId}}">
+                                {{csrf_field()}}
+                                  <button type="button"  id="btn_remove" class="btn btn-danger">Remove</button>
+
+                     </form>
+                 </td>
+                 <td>
+<button class="btn btn-warning btn-xs btn-detail open-modal" value="{{$one->id}}">Edit</button>
+
+
+                  </td>
               </tr>
               @endforeach
             </tbody>
@@ -102,10 +117,105 @@
     </div>
   </div>
 
+  <div class="modal" id="modal_update">
+      <div class="modal-dialog">
+        <div class="modal-content">
+
+          <!-- Modal Header -->
+          <div class="modal-header">
+            <h4 id="update_title" class="modal-title"></h4>
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+          </div>
+
+          <!-- Modal body -->
+          <form id="form_update" method="post" action="{{route('update_package')}}">
+          <div class="modal-body">
+              {{csrf_field()}}
+
+              <input id="update_id" type="hidden" name="package_id">
+              <div class="form-group">
+                <label>Room Num</label>
+                <select id="update_roomId" name="roomId">
+
+                  @foreach($rooms as $room)
+                    <option value="{{$room->id}}">{{$room->roomnumber}}</option>
+                  @endforeach
+                </select>
+              </div>
+              <div class="form-group">
+                <label>Package Name</label>
+                <input id="update_packName" type="text" class="form-control" name="packageName" >
+              </div>
+              <div class="form-group">
+                <label>Package Info</label>
+                <input id="update_packInfo" type="text" class="form-control" name="packageInfo" placeholder="Package Info">
+              </div>
+              <div class="form-group">
+                <input id="mailbox_id_old" type="hidden" name="mailbox_id_old">
+                <label>Mailbox</label>
+                <select id="update_mailbox" name="mailbox" >
+
+                </select>
+              </div>
+              <div class="form-group">
+                <label>mailbox PW</label>
+                <input id="updatePW" type="number" class="form-control" name="mailboxPW">
+              </div>
+              <div class="form-group">
+                <label>Date</label>
+                <input id="update_date" type="date" class="form-control" name="date">
+              </div>
+
+
+          </div>
+          <!-- Modal footer -->
+          <div class="modal-footer">
+            <button type="button" id="btn_update" class="btn btn-primary">Update</button>
+            <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+          </div>
+          </form>
+        </div>
+      </div>
+    </div>
+
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
 
   <script type="text/javascript">
+
+  $('.open-modal').click(function(){
+     $('#update_mailbox').find('option').remove().end();
+      var pack_id = $(this).val();
+      var url = '/C4Iapp/public/package';
+      $.get(url + '/' + pack_id, function (data) {
+          //success data
+          console.log(data);
+
+     var d = data[0];
+     console.log(d.id);
+     $('#update_id').val(d.id);
+     $('#update_roomId').val(d.roomId);
+     $('#update_packName').val(d.packageName);
+     $('#update_packInfo').val(d.packageInfo);
+     var pro = "";
+     <?php foreach ($mailbox as $mbox): ?>
+             pro += "<option value='" + {{$mbox->id}} +  "'>"  + {{$mbox->id}} +  "</option>";
+     <?php endforeach ?>
+     $("#update_mailbox").html(pro);
+     $("#update_mailbox").prepend("<option value='"+d.mailboxId+ "' selected='selected'>"+d.mailboxId+"</option>");
+
+     $('#mailbox_id_old').val(d.mailboxId);
+     $('#update_mailbox').val(d.mailboxId);
+     $('#updatePW').val(d.mailboxPW);
+     $('#update_date').val(d.date);
+
+        //  $('#update_packName').val(data.packageName);
+        //  $('#update_packInfo').val(data.packageJnfo);
+        //  console.log(data.packageJnfo);
+          $('#modal_update').modal('show');
+      })
+  });
+
     $(document).on('click','#btn_add',function(){
         var form = $('#form_add');
         var url = form.attr('action');
@@ -122,6 +232,55 @@
           success: function(data)
           {
             $('#modal_add').modal('hide');
+            location.reload();
+          },
+          error: function (data) {
+            alert('error');
+            console.log(data);
+          }
+        });
+    });
+
+    $(document).on('click','#btn_remove',function(){
+        var form = $('#remove_form');
+        var url = form.attr('action');
+        $.ajaxSetup({
+          headers: {
+              'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+          }
+        });
+        console.log(form.serialize());
+        $.ajax({
+          type: "POST",
+          url: url,
+          data: form.serialize(), // serializes the form's elements.
+          success: function(data)
+          {
+            $('#modal_update').modal('hide');
+            location.reload();
+          },
+          error: function (data) {
+            alert('error');
+            console.log(data);
+          }
+        });
+    });
+    $(document).on('click','#btn_update',function(){
+        var form = $('#form_update');
+        var url = form.attr('action');
+        $.ajaxSetup({
+          headers: {
+              'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+          }
+        });
+        console.log(form.serialize());
+        $.ajax({
+          type: "POST",
+          url: url,
+          data: form.serialize(), // serializes the form's elements.
+          success: function(data)
+          {
+            $('#modal_update').modal('hide');
             location.reload();
           },
           error: function (data) {
