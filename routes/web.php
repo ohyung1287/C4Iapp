@@ -52,3 +52,4 @@ Route::get('/LostFoundTopics',['as'=>'LostFoundTopics','uses'=>'LostFoundControl
 Route::post('/LostFoundTopics/add',['as'=>'add_topic','uses'=>'LostFoundController@add_topic']);
 
 Route::get('/LostFoundTopics/{id}',['as'=>'LostFoundReplys','uses'=>'LostFoundController@index_reply']);
+Route::post('/LostFoundTopics/{id}/reply',['as'=>'reply','uses'=>'LostFoundController@add_reply']);
