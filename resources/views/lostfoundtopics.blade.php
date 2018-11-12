@@ -5,6 +5,7 @@
       <div class="card-body">
         <div class="float-right" style="margin-bottom: 5%">
           <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal_add">Add</button>
+          <button type="button" class="btn btn-danger">Remove</button>
 
         </div>
         <div class="table-responsive">
@@ -60,10 +61,6 @@
               <label>Message</label>
               <br>
                 <textarea class="form-control" style="min-width: 100%" name="message"></textarea>
-            </div>
-            <div class="form-group">
-              <label>Date</label>
-              <input type="date" class="form-control" name="date">
             </div>
         </div>
         <!-- Modal footer -->

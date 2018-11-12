@@ -26,7 +26,7 @@ class LostFoundController extends Controller
         $lfTopic->email=$request->email;
         $lfTopic->subject=$request->subject;
         $lfTopic->message=$request->message;
-        $lfTopic->date=$request->date;
+        $lfTopic->date=date('Y-m-d');;
         $lfTopic->save();
 
     }
@@ -38,8 +38,19 @@ class LostFoundController extends Controller
       $rooms=Rooms::get();
       $residents=Residents::get();
 
-      return view('LostFoundReplies',['topic'=>$lostFoundTopic,'residents'=>$residents,'lostFoundReplies'=>$lostFoundReplies,'rooms'=>$rooms]);
+      return view('LostFoundReplies',['topic'=>$lostFoundTopic,'residents'=>$residents,'lostFoundReplies'=>$lostFoundReplies,'rooms'=>$rooms,'id'=>$id]);
     }
 
+    public function add_reply(Request $request){
+      Log::notice($request);
+      $lfReply = new LostFoundReply;
+      $lfReply->topicId=$request->topicId;
+      $lfReply->residentId=$request->residentId;
+      $lfReply->email=$request->email;
+      $lfReply->message=$request->message;
+      $lfReply->date= date('Y-m-d');
+      $lfReply->save();
+
+    }
 
 }
