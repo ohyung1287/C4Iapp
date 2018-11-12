@@ -46,3 +46,9 @@ Route::post('/visitor/search/visitor',['as'=>'searchVisitor','uses'=>'VisitorCon
 Route::get('repair','pageController@getRepair');
 Route::get('services','PostsController@services');
 Route::resource('posts','PostsController');
+
+
+Route::get('/LostFoundTopics',['as'=>'LostFoundTopics','uses'=>'LostFoundController@index']);
+Route::post('/LostFoundTopics/add',['as'=>'add_topic','uses'=>'LostFoundController@add_topic']);
+
+Route::get('/LostFoundTopics/{id}',['as'=>'LostFoundReplys','uses'=>'LostFoundController@index_reply']);

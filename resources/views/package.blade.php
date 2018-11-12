@@ -63,7 +63,7 @@
 
         <!-- Modal Header -->
         <div class="modal-header">
-          <h4 class="modal-title">Adding new packge</h4>
+          <h4 class="modal-title">Adding new Package</h4>
           <button type="button" class="close" data-dismiss="modal">&times;</button>
         </div>
 
@@ -123,7 +123,7 @@
 
           <!-- Modal Header -->
           <div class="modal-header">
-            <h4 id="update_title" class="modal-title"></h4>
+            <h4 class="modal-title">Edit package Information</h4>
             <button type="button" class="close" data-dismiss="modal">&times;</button>
           </div>
 
@@ -189,10 +189,10 @@
       var url = '/C4Iapp/public/package';
       $.get(url + '/' + pack_id, function (data) {
           //success data
-          console.log(data);
+    console.log(data);
 
      var d = data[0];
-     console.log(d.id);
+     console.log(d);
      $('#update_id').val(d.id);
      $('#update_roomId').val(d.roomId);
      $('#update_packName').val(d.packageName);
@@ -209,9 +209,6 @@
      $('#updatePW').val(d.mailboxPW);
      $('#update_date').val(d.date);
 
-        //  $('#update_packName').val(data.packageName);
-        //  $('#update_packInfo').val(data.packageJnfo);
-        //  console.log(data.packageJnfo);
           $('#modal_update').modal('show');
       })
   });
