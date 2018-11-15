@@ -341,9 +341,11 @@ class ComposerStaticInitb50045dec004bb1bb45f30bfeb5bb5ce
 
     public static $classMap = array (
         'App\\Administrators' => __DIR__ . '/../..' . '/app/Administrators.php',
+        'App\\Announcements' => __DIR__ . '/../..' . '/app/Announcements.php',
         'App\\Console\\Kernel' => __DIR__ . '/../..' . '/app/Console/Kernel.php',
         'App\\Exceptions\\Handler' => __DIR__ . '/../..' . '/app/Exceptions/Handler.php',
         'App\\FacilityBooking' => __DIR__ . '/../..' . '/app/FacilityBooking.php',
+        'App\\Http\\Controllers\\AnnouncementController' => __DIR__ . '/../..' . '/app/Http/Controllers/AnnouncementController.php',
         'App\\Http\\Controllers\\Auth\\ForgotPasswordController' => __DIR__ . '/../..' . '/app/Http/Controllers/Auth/ForgotPasswordController.php',
         'App\\Http\\Controllers\\Auth\\LoginController' => __DIR__ . '/../..' . '/app/Http/Controllers/Auth/LoginController.php',
         'App\\Http\\Controllers\\Auth\\RegisterController' => __DIR__ . '/../..' . '/app/Http/Controllers/Auth/RegisterController.php',
@@ -351,6 +353,7 @@ class ComposerStaticInitb50045dec004bb1bb45f30bfeb5bb5ce
         'App\\Http\\Controllers\\Auth\\VerificationController' => __DIR__ . '/../..' . '/app/Http/Controllers/Auth/VerificationController.php',
         'App\\Http\\Controllers\\ConsoleController' => __DIR__ . '/../..' . '/app/Http/Controllers/ConsoleController.php',
         'App\\Http\\Controllers\\Controller' => __DIR__ . '/../..' . '/app/Http/Controllers/Controller.php',
+        'App\\Http\\Controllers\\FacilityBookingController' => __DIR__ . '/../..' . '/app/Http/Controllers/FacilityBookingController.php',
         'App\\Http\\Controllers\\LoginController' => __DIR__ . '/../..' . '/app/Http/Controllers/LoginController.php',
         'App\\Http\\Controllers\\PackageController' => __DIR__ . '/../..' . '/app/Http/Controllers/PackageController.php',
         'App\\Http\\Controllers\\ResidentController' => __DIR__ . '/../..' . '/app/Http/Controllers/ResidentController.php',
@@ -374,7 +377,7 @@ class ComposerStaticInitb50045dec004bb1bb45f30bfeb5bb5ce
         'App\\Residents' => __DIR__ . '/../..' . '/app/Residents.php',
         'App\\Rooms' => __DIR__ . '/../..' . '/app/Rooms.php',
         'App\\Visitors' => __DIR__ . '/../..' . '/app/Visitors.php',
-        'App\\announcement' => __DIR__ . '/../..' . '/app/announcement.php',
+        'App\\facility' => __DIR__ . '/../..' . '/app/facility.php',
         'BeyondCode\\DumpServer\\DumpServerCommand' => __DIR__ . '/..' . '/beyondcode/laravel-dump-server/src/DumpServerCommand.php',
         'BeyondCode\\DumpServer\\DumpServerServiceProvider' => __DIR__ . '/..' . '/beyondcode/laravel-dump-server/src/DumpServerServiceProvider.php',
         'BeyondCode\\DumpServer\\Dumper' => __DIR__ . '/..' . '/beyondcode/laravel-dump-server/src/Dumper.php',

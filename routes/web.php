@@ -37,8 +37,13 @@ Route::get('/visitor',['as'=>'visitor','uses'=>'VisitorController@index']);
 Route::post('/visitor/add/visitor',['as'=>'addVisitor','uses'=>'VisitorController@addVisitor']);
 Route::post('/visitor/search/visitor',['as'=>'searchVisitor','uses'=>'VisitorController@searchVisitor']);
 
-//Valerie - Announcement
+//Valerie - Announcement & Booking
 Route::get('/announcement',['as'=>'announcement','uses'=>'AnnouncementController@index']);
 Route::post('/announcement/add/announcement',['as'=>'add_announcement','uses'=>'AnnouncementController@add_announcement']);
 Route::post('/announcement/update/announcement',['as'=>'update_announcement','uses'=>'AnnouncementController@update_announcement']);
 Route::get('/announcement/delete/announcement',['as'=>'delete_announcement','uses'=>'AnnouncementController@delete_announcement']);
+
+Route::get('/facility_booking',['as'=>'facility_booking','uses'=>'FacilityBookingController@index']);
+Route::post('/facility_booking/add/facility_booking',['as'=>'add_facility_booking','uses'=>'FacilityBookingController@add_facility_booking']);
+Route::post('/facility_booking/update/facility_booking',['as'=>'update_facility_booking','uses'=>'FacilityBookingController@update_facility_booking']);
+Route::get('/facility_booking/delete/facility_booking',['as'=> 'delete_facility_booking','uses'=>'FacilityBookingController@delete_facility_booking']);

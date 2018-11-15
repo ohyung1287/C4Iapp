@@ -7,9 +7,11 @@ $baseDir = dirname($vendorDir);
 
 return array(
     'App\\Administrators' => $baseDir . '/app/Administrators.php',
+    'App\\Announcements' => $baseDir . '/app/Announcements.php',
     'App\\Console\\Kernel' => $baseDir . '/app/Console/Kernel.php',
     'App\\Exceptions\\Handler' => $baseDir . '/app/Exceptions/Handler.php',
     'App\\FacilityBooking' => $baseDir . '/app/FacilityBooking.php',
+    'App\\Http\\Controllers\\AnnouncementController' => $baseDir . '/app/Http/Controllers/AnnouncementController.php',
     'App\\Http\\Controllers\\Auth\\ForgotPasswordController' => $baseDir . '/app/Http/Controllers/Auth/ForgotPasswordController.php',
     'App\\Http\\Controllers\\Auth\\LoginController' => $baseDir . '/app/Http/Controllers/Auth/LoginController.php',
     'App\\Http\\Controllers\\Auth\\RegisterController' => $baseDir . '/app/Http/Controllers/Auth/RegisterController.php',
@@ -17,6 +19,7 @@ return array(
     'App\\Http\\Controllers\\Auth\\VerificationController' => $baseDir . '/app/Http/Controllers/Auth/VerificationController.php',
     'App\\Http\\Controllers\\ConsoleController' => $baseDir . '/app/Http/Controllers/ConsoleController.php',
     'App\\Http\\Controllers\\Controller' => $baseDir . '/app/Http/Controllers/Controller.php',
+    'App\\Http\\Controllers\\FacilityBookingController' => $baseDir . '/app/Http/Controllers/FacilityBookingController.php',
     'App\\Http\\Controllers\\LoginController' => $baseDir . '/app/Http/Controllers/LoginController.php',
     'App\\Http\\Controllers\\PackageController' => $baseDir . '/app/Http/Controllers/PackageController.php',
     'App\\Http\\Controllers\\ResidentController' => $baseDir . '/app/Http/Controllers/ResidentController.php',
@@ -40,7 +43,7 @@ return array(
     'App\\Residents' => $baseDir . '/app/Residents.php',
     'App\\Rooms' => $baseDir . '/app/Rooms.php',
     'App\\Visitors' => $baseDir . '/app/Visitors.php',
-    'App\\announcement' => $baseDir . '/app/announcement.php',
+    'App\\facility' => $baseDir . '/app/facility.php',
     'BeyondCode\\DumpServer\\DumpServerCommand' => $vendorDir . '/beyondcode/laravel-dump-server/src/DumpServerCommand.php',
     'BeyondCode\\DumpServer\\DumpServerServiceProvider' => $vendorDir . '/beyondcode/laravel-dump-server/src/DumpServerServiceProvider.php',
     'BeyondCode\\DumpServer\\Dumper' => $vendorDir . '/beyondcode/laravel-dump-server/src/Dumper.php',
