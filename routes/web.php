@@ -34,6 +34,8 @@ Route::get('/package/{pask_id?}',function($pack_id){
     $pack = Packages::where('id',$pack_id)->get();
     return Response::json($pack);
 });
+
+
 Route::post('/package/add',['as'=>'add_package','uses'=>'PackageController@add_package']);
 Route::post('/package/remove',['as'=>'remove_package','uses'=>'PackageController@remove_package']);
 Route::post('/package/update',['as'=>'update_package','uses'=>'PackageController@update_package']);
@@ -41,7 +43,6 @@ Route::post('/package/update',['as'=>'update_package','uses'=>'PackageController
 Route::get('/visitor',['as'=>'visitor','uses'=>'VisitorController@index']);
 Route::post('/visitor/add/visitor',['as'=>'addVisitor','uses'=>'VisitorController@addVisitor']);
 Route::post('/visitor/search/visitor',['as'=>'searchVisitor','uses'=>'VisitorController@searchVisitor']);
-
 
 Route::get('repair','pageController@getRepair');
 Route::get('services','PostsController@services');
@@ -53,3 +54,15 @@ Route::post('/LostFoundTopics/add',['as'=>'add_topic','uses'=>'LostFoundControll
 
 Route::get('/LostFoundTopics/{id}',['as'=>'LostFoundReplys','uses'=>'LostFoundController@index_reply']);
 Route::post('/LostFoundTopics/{id}/reply',['as'=>'reply','uses'=>'LostFoundController@add_reply']);
+
+
+//Valerie - Announcement & Booking
+Route::get('/announcement',['as'=>'announcement','uses'=>'AnnouncementController@index']);
+Route::post('/announcement/add/announcement',['as'=>'add_announcement','uses'=>'AnnouncementController@add_announcement']);
+Route::post('/announcement/update/announcement',['as'=>'update_announcement','uses'=>'AnnouncementController@update_announcement']);
+Route::get('/announcement/delete/announcement',['as'=>'delete_announcement','uses'=>'AnnouncementController@delete_announcement']);
+
+Route::get('/facility_booking',['as'=>'facility_booking','uses'=>'FacilityBookingController@index']);
+Route::post('/facility_booking/add/facility_booking',['as'=>'add_facility_booking','uses'=>'FacilityBookingController@add_facility_booking']);
+Route::post('/facility_booking/update/facility_booking',['as'=>'update_facility_booking','uses'=>'FacilityBookingController@update_facility_booking']);
+Route::get('/facility_booking/delete/facility_booking',['as'=> 'delete_facility_booking','uses'=>'FacilityBookingController@delete_facility_booking']);
