@@ -66,6 +66,9 @@
 
 </html>
 <script type="text/javascript">
+  $(document).ready(function(){
+    // window.location.href="{{route('console')}}"
+  });
   function form_submit(){
     var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
     var formData = {
@@ -80,10 +83,11 @@
         data: formData,
         dataType: 'JSON',
         success: function (data) { 
-          alert(data); 
+          alert(data);
+          window.location.href="{{route('console')}}"
         },
         error: function (data) {
-          alert(data.responseText);
+          
         }
       }); 
     }

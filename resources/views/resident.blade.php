@@ -18,6 +18,7 @@
                 <th>Phone</th>
                 <th>Mobile</th>
                 <th>Email</th>
+                <th>Account</th>
               </tr>
             </thead>
             <tbody>
@@ -29,6 +30,11 @@
                 <td>{{$one->phone}}</td>
                 <td>{{$one->mobile}}</td>
                 <td>{{$one->email}}</td>
+                @if($one->isaccess==1)
+                <td>Activity!</td>
+                @else
+                <td><a class="nounderline" href="javascript:email({{$one->id}})"><span class="btn-danger rounded">Verify</span></a></td>
+                @endif
               </tr>
               @endforeach
             </tbody>
@@ -60,7 +66,12 @@
             </div>
             <div class="form-group">
               <label>Room Id</label>
-              <input type="number" class="form-control" name="roomid" placeholder="Room Id">
+              <select id="roomid" name="roomid">
+                  <option value=""></option>
+                @foreach($rooms as $room)
+                  <option value="{{$room->id}}">{{$room->roomnumber}}</option>
+                @endforeach
+              </select>
             </div>
             <div class="form-group">
               <label>Moblie</label>
@@ -144,6 +155,30 @@
 
 
   <script type="text/javascript">
+  function email(uid){
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+      });
+    $.ajax({
+        type: "GET",
+        url: "{{route('verifymail')}}",
+        data: {id: uid}, // serializes the form's elements.
+        success: function(data)
+        {
+          snackbar(data);
+         
+          // location.reload();
+        },
+        error: function (data) {
+          
+          console.log(data.responseText);
+          console.log(data);
+        }
+      });
+ 
+  }
   $(document).ready(function(){
     $('#li_resident').addClass('active');
     // $("#update_id").select2();
@@ -155,8 +190,13 @@
         $('#update_email').val('{{$resident->email}}');
         $('#update_phone').val('{{$resident->phone}}');
         $('#update_mobile').val('{{$resident->mobile}}');
+<<<<<<< HEAD
         $('#update_room').val('{{$resident->roomid}}');
       }
+=======
+        $('#update_room').val('{{$resident->roomid}}'); 
+      }      
+>>>>>>> Ray1105
     <?php endforeach ?>
     
   });
@@ -194,7 +234,7 @@
       });
       console.log(form.serialize());
       $.ajax({
-        type: "POST",
+        type: "GET",
         url: url,
         data: form.serialize(), // serializes the form's elements.
         success: function(data)
@@ -208,5 +248,36 @@
         }
       });
   });
+<<<<<<< HEAD
+=======
+  
+  $(document).on('click','#btn_delete',function(){
+
+      var form = $('#form_delete');
+      var url = form.attr('action');
+      $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+      });
+      console.log(form.serialize());
+      $.ajax({
+        type: "GET",
+        url: url,
+        data: form.serialize(), // serializes the form's elements.
+        success: function(data)
+        {
+          snackbar(data);
+          $('#modal_delete').modal('hide');
+          location.reload();
+        },
+        error: function (data) {
+          
+          console.log(data.responseText);
+          console.log(data);
+        }
+      });
+  });   
+>>>>>>> Ray1105
 </script>
 @stop
