@@ -91,7 +91,7 @@ class ResidentController extends Controller
     }
     public function registration_email(Request $request){
         $resident=Residents::where('id',$request->id)->first();
-        
+        Log::notice($request);
         set_time_limit(60);
         Mail::to($resident->email)->send(new VerifyNewUser($resident));
         return 'Email sending success';

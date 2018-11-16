@@ -190,13 +190,8 @@
         $('#update_email').val('{{$resident->email}}');
         $('#update_phone').val('{{$resident->phone}}');
         $('#update_mobile').val('{{$resident->mobile}}');
-<<<<<<< HEAD
         $('#update_room').val('{{$resident->roomid}}');
-      }
-=======
-        $('#update_room').val('{{$resident->roomid}}'); 
       }      
->>>>>>> Ray1105
     <?php endforeach ?>
     
   });
@@ -248,9 +243,6 @@
         }
       });
   });
-<<<<<<< HEAD
-=======
-  
   $(document).on('click','#btn_delete',function(){
 
       var form = $('#form_delete');
@@ -278,6 +270,5 @@
         }
       });
   });   
->>>>>>> Ray1105
 </script>
 @stop

@@ -11,16 +11,6 @@
 
     <title>C4I</title>
 
-    <!-- Bootstrap core CSS-->
-<<<<<<< HEAD
-    <link href="{{asset('vendor/bootstrap/css/bootstrap.min.css')}}" rel="stylesheet">
-
-    <!-- Custom fonts for this template-->
-    <link href="{{asset('vendor/fontawesome-free/css/all.min.css')}}" rel="stylesheet" type="text/css">
-
-    <!-- Page level plugin CSS-->
-    <link href="{{asset('vendor/datatables/dataTables.bootstrap4.css')}}" rel="stylesheet">
-=======
 
 
    
@@ -32,7 +22,6 @@
 
     <!-- Page level plugin CSS-->
     <link href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css" rel="stylesheet">
->>>>>>> Ray1105
     <!-- Using Select2 -->
     <!-- <link href="vendor/select2/select2.min.css" rel="stylesheet"> -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css" rel="stylesheet" />
