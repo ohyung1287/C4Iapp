@@ -145,3 +145,12 @@
   </body>
 
 </html>
+
+<script type="text/javascript">
+  function snackbar(text){
+    $('#mysnackbar').attr('class','show');
+      $('#mysnackbar').html(text);
+      setTimeout(function(){  $('#mysnackbar').attr('class','');}, 3000);
+  }
+
+</script>
