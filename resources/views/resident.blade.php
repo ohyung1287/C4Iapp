@@ -29,10 +29,10 @@
                 <td>{{$one->phone}}</td>
                 <td>{{$one->mobile}}</td>
                 <td>{{$one->email}}</td>
-                @if($one->isactivity)
+                @if($one->isaccess==1)
                 <td>Activity!</td>
                 @else
-                <td>No</td>
+                <td><a class="nounderline" href="javascript:email({{$one->id}})"><span class="btn-danger rounded">Verify</span></a></td>
                 @endif
               </tr>
               @endforeach
@@ -65,7 +65,12 @@
             </div>
             <div class="form-group">
               <label>Room Id</label>
-              <input type="number" class="form-control" name="roomid" placeholder="Room Id">
+              <select id="roomid" name="roomid">
+                  <option value=""></option>
+                @foreach($rooms as $room)
+                  <option value="{{$room->id}}">{{$room->roomnumber}}</option>
+                @endforeach
+              </select>
             </div>
             <div class="form-group">
               <label>Moblie</label>
@@ -170,6 +175,30 @@
 
 
   <script type="text/javascript">
+  function email(uid){
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+      });
+    $.ajax({
+        type: "GET",
+        url: "{{route('verifymail')}}",
+        data: {id: uid}, // serializes the form's elements.
+        success: function(data)
+        {
+          snackbar(data);
+         
+          // location.reload();
+        },
+        error: function (data) {
+          
+          console.log(data.responseText);
+          console.log(data);
+        }
+      });
+ 
+  }
   $(document).ready(function(){
     $('#li_resident').addClass('active'); 
     $("#update_id").select2();
@@ -181,7 +210,6 @@
         $('#update_email').val('{{$resident->email}}');
         $('#update_phone').val('{{$resident->phone}}');
         $('#update_mobile').val('{{$resident->mobile}}');
-        
         $('#update_room').val('{{$resident->roomid}}'); 
       }      
     <?php endforeach ?>
@@ -233,7 +261,7 @@
       });
       console.log(form.serialize());
       $.ajax({
-        type: "POST",
+        type: "GET",
         url: url,
         data: form.serialize(), // serializes the form's elements.
         success: function(data)
@@ -260,6 +288,7 @@
       snackbar('Select at least one resident to remove.');
     }
   });
+  
   $(document).on('click','#btn_delete',function(){
 
       var form = $('#form_delete');
