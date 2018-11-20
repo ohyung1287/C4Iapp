@@ -77,9 +77,9 @@ class ResidentController extends Controller
 
     }
     public function update_room(Request $request){
-        Residents::where('id', $request->id)
-          ->update(['name' => $request->name,'roomid' => $request->roomid,'email' => $request->email,
-            'mobile' => $request->mobile,'phone' => $request->phone]);
+        Log::notice($request);
+        Rooms::where('id', $request->id)
+          ->update(['roomnumber' => $request->roomnumber,'size' => $request->size]);
         //return "hello";
     }
     public function user_registration($id,$token){
@@ -109,8 +109,13 @@ class ResidentController extends Controller
         // Log::notice($request->all());
         $list=explode(',',$request->remove_list);
         foreach($list as $one){
-            Residents::where('id', $one)->delete(); 
+            $count=Residents::where('roomid',$one)->count();
+            if($count==0)
+            Rooms::where('id', $one)->delete(); 
+            else{
+                Log::notice("!=0");
+                return "This room is on use";
+            } 
         }
-        return "Residents has been remove.";
     }
 }

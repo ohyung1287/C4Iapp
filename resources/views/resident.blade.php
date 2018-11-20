@@ -308,8 +308,11 @@
         data: form.serialize(), // serializes the form's elements.
         success: function(data)
         {
-          $('#modal_delete').modal('hide');
-          location.reload();
+          alert(data);
+          if(data==""){
+            $('#modal_delete').modal('hide');
+            location.reload();
+          }else alerrt(data);
         },
         error: function (data) {
           
