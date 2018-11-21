@@ -108,27 +108,32 @@
 
       <!-- Sidebar -->
      <ul class="sidebar navbar-nav">
-  <li id="li_dashboard" class="nav-item">
-    <a class="nav-link" href="{{ route('console') }}">
-      <i class="fas fa-fw fa-tachometer-alt"></i>
-      <span>Dashboard</span>
-    </a>
-  </li>
-  <li id="li_resident" class="nav-item">
-    <a class="nav-link" href="{{route('resident')}}">
-      <i class="fas fa-user"></i>
-      <span>Resident list</span></a>
-  </li>
+         <li id="li_dashboard" class="nav-item">
+             <a class="nav-link" href="{{ route('console') }}">
+                 <i class="fas fa-fw fa-tachometer-alt"></i>
+                 <span>Dashboard</span>
+             </a>
+         </li>
          <li id="li_resident" class="nav-item">
+             <a class="nav-link" href="{{route('resident')}}">
+                 <i class="fas fa-user"></i>
+                 <span>Residents list</span></a>
+         </li>
+         <li id="li_visitor" class="nav-item">
              <a class="nav-link" href="{{route('visitor')}}">
                  <i class="fas fa-user"></i>
                  <span>Visitors list</span></a>
          </li>
-  <li id="li_rooms" class="nav-item">
-    <a class="nav-link" href="{{route('room')}}">
-      <i class="fas fa-door-open"></i>
-      <span>Rooms</span></a>
-  </li>
+         <li id="li_message" class="nav-item">
+             <a class="nav-link" href="{{route('send_from')}}">
+                 <i class="fas fa-user"></i>
+                 <span>Send Messages</span></a>
+         </li>
+         <li id="li_rooms" class="nav-item">
+             <a class="nav-link" href="{{route('room')}}">
+                 <i class="fas fa-door-open"></i>
+                 <span>Rooms</span></a>
+         </li>
 </ul>
 
 @yield('index-content')

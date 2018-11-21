@@ -7,5 +7,5 @@ use Illuminate\Database\Eloquent\Model;
 class Visitors extends Model
 {
     //
-    protected $fillable = ['id', 'name', 'email','phone','roomNumber','time_in','time_out'];
+    protected $fillable = ['id', 'roomNumber', 'name','email','phone','created_at'];
 }

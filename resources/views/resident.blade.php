@@ -208,7 +208,8 @@
         data: form.serialize(), // serializes the form's elements.
         success: function(data)
         {
-          $('#modal_add').modal('hide');
+            console.log(data)
+            $('#modal_add').modal('hide');
           location.reload();
         },
         error: function (data) {

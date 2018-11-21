@@ -32,7 +32,12 @@ Route::get('/resident/delete/room',['as'=>'delete_room','uses'=>'ResidentControl
 
 Route::get('/package',['as'=>'package','uses'=>'PackageController@index']);
 
-//Dorothy Hao
+//Dorothy Hao for Visitors
 Route::get('/visitor',['as'=>'visitor','uses'=>'VisitorController@index']);
-Route::post('/visitor/add/visitor',['as'=>'addVisitor','uses'=>'VisitorController@addVisitor']);
-Route::post('/visitor/search/visitor',['as'=>'searchVisitor','uses'=>'VisitorController@searchVisitor']);
+Route::post('/visitor/add/visitor',['as'=>'add_visitor','uses'=>'VisitorController@addVisitor']);
+Route::post('/visitor/search/visitor',['as'=>'search_visitor','uses'=>'VisitorController@searchVisitor']);
+
+//Dorothy Hao for Messages
+
+Route::get('/sendForm',['as'=>'send_from','uses'=>'MessageController@index']);
+Route::get('/sendEmail',['as'=>'send_email','uses'=>'MessageController@sendMessage']);

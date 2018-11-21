@@ -15,13 +15,10 @@ class CreateVisitorsTable extends Migration
     {
         Schema::create('visitors', function (Blueprint $table) {
             $table->increments('id');
+            $table->integer('roomNumber');
             $table->string('name');
-            $table->String('email');
-            $table->string('password')->nullable();
-            $table->string('phone')->nullable();
-            $table->date('time_in');
-            $table->date('time_out');
-            $table->string('roomNumber')->nullable();
+            $table->string('email');
+            $table->string('phone');
             $table->timestamps();
         });
     }
