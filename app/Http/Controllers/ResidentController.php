@@ -34,12 +34,13 @@ class ResidentController extends Controller
     	return view('room',['rooms'=>$rooms]);
     }
     public function add_resident(Request $request){
-        Log::notice($request);
-    	$resident = new Residents;
+        // Log::notice($request);
+    	$resident = Residents::where('email',$request->email)->first();
         $user = User::where('account',$request->email)->first();
-        if($user!==null){//this email is already been used
+        if($user!==null || $resident!=null){//this email is already been used
             return "exist";
         }else{
+            $resident = new Residents;
             $resident->token=Str::random(8);
             $resident->name=$request->name;
             $resident->roomid=$request->roomid;
@@ -50,16 +51,19 @@ class ResidentController extends Controller
         }
     }
     public function update_resident(Request $request){
-        Log::notice($request);
+        if(User::where('resident_id',$request->id)->first()!=null)
+            User::where('resident_id',$request->id)->update(['account'=>$request->email]);
         Residents::where('id', $request->id)
           ->update(['name' => $request->name,'roomid' => $request->roomid,'email' => $request->email,
             'mobile' => $request->mobile,'phone' => $request->phone]);
     }
     public function delete_resident(Request $request){
-        // Log::notice($request->all());
+        Log::notice($request);
         $list=explode(',',$request->remove_list);
         foreach($list as $one){
             Residents::where('id', $one)->delete();
+            User::where('resident_id',$one)->delete();
+
         }
         return "Residents has been remove.";
     }
@@ -81,7 +85,8 @@ class ResidentController extends Controller
     public function user_registration($id,$token){
         $url='';
         $resident=Residents::where('id',$id)->first();
-
+        $resident->isaccess=-1;//-1 => user account is created successfully
+        $resident->save();
         $user = new User();
         $user->account=$resident->email;
         $user->password=Hash::make($token);
@@ -91,7 +96,10 @@ class ResidentController extends Controller
     }
     public function registration_email(Request $request){
         $resident=Residents::where('id',$request->id)->first();
-        Log::notice($request);
+        Log::notice($resident);
+        $resident->isaccess=1; //1 => email is sent but user account has not created yet
+        $resident->save();
+        // Log::notice($request);
         set_time_limit(60);
         Mail::to($resident->email)->send(new VerifyNewUser($resident));
         return 'Email sending success';

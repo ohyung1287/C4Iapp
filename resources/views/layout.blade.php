@@ -21,6 +21,7 @@
 
 
     <!-- Page level plugin CSS-->
+    <link href="vendor/select2/select2.min.css" rel="stylesheet">
     <link href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css" rel="stylesheet">
     <!-- Using Select2 -->
     <!-- <link href="vendor/select2/select2.min.css" rel="stylesheet"> -->
@@ -84,7 +85,8 @@
       <span>Rooms</span></a>
   </li>
 </ul>
-
+<!-- <div id="mysnackbar"></div>
+ -->
 @yield('index-content')
       <footer class="sticky-footer">
           <div class="container my-auto">
