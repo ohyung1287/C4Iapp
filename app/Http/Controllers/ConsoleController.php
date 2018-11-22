@@ -10,4 +10,8 @@ class ConsoleController extends Controller
     public function index(){
     	return view('index');
     }
+
+    public function ui(){
+      return view('userinterface');
+    }
 }

@@ -20,6 +20,9 @@ Route::post('/login/login', ['as'=>'login','uses'=>'LoginController@login']);
 
 Route::get('/index', ['as'=>'console','uses'=>'ConsoleController@index']);
 
+
+Route::get('/userinterface', ['as'=>'ui','uses'=>'ConsoleController@ui']);
+
 Route::get('/resident',['as'=>'resident','uses'=>'ResidentController@index']);
 Route::get('/room',['as'=>'room','uses'=>'ResidentController@room']);
 /*Resident & Room*/
@@ -42,7 +45,7 @@ Route::get('/package/{pask_id?}',function($pack_id){
     return Response::json($pack);
 });
 
-
+Route::get('/package/{id}/{packid}','PackageController@pack_confirm')->name('packconfirmed');
 Route::post('/package/add',['as'=>'add_package','uses'=>'PackageController@add_package']);
 Route::post('/package/remove',['as'=>'remove_package','uses'=>'PackageController@remove_package']);
 Route::post('/package/update',['as'=>'update_package','uses'=>'PackageController@update_package']);

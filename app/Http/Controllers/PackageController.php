@@ -6,8 +6,15 @@ use App\Rooms;
 use App\Mailbox;
 use App\Packages;
 
+
+
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 use Log;
+use Mail;
+use Hash;
+use App\Mail\ConfirmPackage;
+
 class PackageController extends Controller
 {
     //
@@ -34,6 +41,35 @@ class PackageController extends Controller
         $package->save();
 
         self::setMailBoxUnAva($request->mailbox,$request->mailboxPW);
+
+
+        $packageGet=Packages::where('mailboxId',$request->mailbox)->first();
+        $resident=Residents::where('roomid',$request->roomId)
+                    ->where('name', 'like', '%'.$request->packageName.'%')
+                    ->first();
+        if ($resident == null){
+          $resident=Residents::where('roomid',$request->roomId)
+                      ->first();
+        }
+        self::package_email($resident,$packageGet);
+    }
+
+
+
+    public function package_email($resident,$package){
+        //Log::notice($request);
+        set_time_limit(60);
+        Mail::to($resident->email)->send(new ConfirmPackage($resident,$package));
+        return 'Email sending success';
+    }
+
+
+    public function pack_confirm($id,$packid){
+        //$url='';
+
+        Packages::where('id',$packid)->update(['status' => 0]);
+        return redirect('login');
+
     }
 
 
