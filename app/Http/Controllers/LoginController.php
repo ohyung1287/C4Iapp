@@ -8,6 +8,7 @@ use Log;
 use App\Residents;
 use App\User;
 use Hash;
+use Form;
 class LoginController extends Controller
 {
     //
@@ -22,13 +23,16 @@ class LoginController extends Controller
     	
     	$user=User::where('account',$request->account)->first();
     	Log::notice($user);
-    	if(Hash::check($request->password, $user->password)){
-    		Log::notice('success');
-    	/*store a value into session*/
-    		$request->session()->put('user_id',$user->resident_id);
-    		Log::notice($request->session()->get('user_id'));
-    	/*--------------------------*/
-    		return view('index');//success
-    	}else return "fail";
+        if($user!=null){
+            if(Hash::check($request->password, $user->password)){
+            Log::notice('success');
+        /*store a value into session*/
+            $request->session()->put('user_id',$user->resident_id);
+            Log::notice($request->session()->get('user_id'));
+        /*--------------------------*/
+            return "success";//success
+            }else return "wrong";
+        }else return "not exist";
+    	
     }
 }

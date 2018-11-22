@@ -54,7 +54,7 @@
 
         <!-- Modal Header -->
         <div class="modal-header">
-          <h4 class="modal-title">Adding new resident</h4>
+          <h4 class="modal-title" id="">Adding new resident</h4>
           <button type="button" class="close" data-dismiss="modal">&times;</button>
         </div>
 
@@ -308,8 +308,11 @@
         data: form.serialize(), // serializes the form's elements.
         success: function(data)
         {
-          $('#modal_delete').modal('hide');
-          location.reload();
+          alert(data);
+          if(data==""){
+            $('#modal_delete').modal('hide');
+            location.reload();
+          }else alerrt(data);
         },
         error: function (data) {
           

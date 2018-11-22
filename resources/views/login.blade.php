@@ -28,28 +28,37 @@
       <div class="card card-login mx-auto mt-5">
         <div class="card-header">Login</div>
         <div class="card-body">
-          <form id="form_login" method="post" action="{{route('login')}}">
+           <form id="form_login" method="post" action="{{route('login')}}">
+            {{csrf_field()}}
+            <!-- {!! Form::open(['route'=>['login'],'method'=>'post']) !!} -->
             <div class="form-group">
               <div class="form-label-group">
                 <input type="text" id="account" name="account" class="form-control" placeholder="Account" required="required" autofocus="autofocus">
                 <label for="account">Account</label>
+                <!-- {{Form::label('account','Account')}}
+                {{Form::text('account',null,['class'=>'form-control','placeholder'=>'Account','required'=>'required','autofocus'=>'autofocus'])}} -->
               </div>
             </div>
             <div class="form-group">
               <div class="form-label-group">
-                <input type="password" id="password" name="password" class="form-control" placeholder="Password" required="required">
-                <label for="password">Password</label>
+            <input type="password" id="password" name="password" class="form-control" placeholder="Password" required="required">
+                <label for="password">Password</label> 
+                <!-- {{Form::label('password','Password')}}
+                {{Form::text('password',null,['class'=>'form-control','placeholder'=>'Password','required'=>'required'])}} -->
               </div>
             </div>
             <div class="form-group">
               <div class="checkbox">
                 <label>
                   <input type="checkbox" value="remember-me">
+                  <!-- {{Form::checkbox('remember','remember')}} -->
                   Remember Password
                 </label>
               </div>
             </div>
-            <a class="btn btn-primary btn-block" href="javascript:form_submit()">Login</a>
+            <!-- {{Form::submit('Login',null,['class'=>'btn btn-primary btn-block'])}} -->
+            <button type="button" class="btn btn-primary btn-block" id="btn_login">Login</button>
+            <!-- {!! Form::close() !!} -->
           </form>
         </div>
       </div>
@@ -69,28 +78,36 @@
   $(document).ready(function(){
     // window.location.href="{{route('console')}}"
   });
-  function form_submit(){
-    var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
-    var formData = {
-                _token    : CSRF_TOKEN,
-                account   : $('#account').val(),
-                password  : $('#password').val(),
-    }
-    if(!account==""&&!password==""){
-      $.ajax({
-        url: $('#form_login').attr('action'),
-        type: 'POST',
-        data: formData,
-        dataType: 'JSON',
-        success: function (data) { 
-          alert(data);
-          window.location.href="{{route('console')}}"
-        },
-        error: function (data) {
-          
-        }
-      }); 
-    }
-  }
+  $('#btn_login').on('click',function(){
+    var form = $('#form_login');
+    var url = form.attr('action');
+    
+    $.ajaxSetup({
+      headers: {
+          'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+      }
+    });
+      
+    console.log(form.serialize());
+    $.ajax({
+      type: "POST",
+      url: url,
+      data: form.serialize(), // serializes the form's elements.
+      success: function(data)
+      {
+        
+        if(data=="success")
+          window.location.replace("{{route('console')}}");
+        else if(data=="wrong")
+          alert("wrong");
+        else
+          alert("no user");
+      },
+      error: function (data) {
+        alert('error');
+        console.log(data);
+      }
+    });
+  });
 
 </script>
