@@ -12,17 +12,20 @@
 */
 
 Route::get('/', function () {
-    return view('index');
+    return view('login');
 });
 
 Route::get('/login', ['as'=>'login_page','uses'=>'LoginController@index']);
 Route::post('/login/login', ['as'=>'login','uses'=>'LoginController@login']);
+Route::get('/login/logout', ['as'=>'logout','uses'=>'LoginController@logout']);
 
-Route::get('/index', ['as'=>'console','uses'=>'ConsoleController@index']);
 
+Route::get('/console', ['as'=>'console','uses'=>'ConsoleController@console']);
+Route::get('/error', ['as'=>'error','uses'=>'ConsoleController@error']);
 
-Route::get('/userinterface', ['as'=>'ui','uses'=>'ConsoleController@ui']);
-
+Route::get('/profile/{id}', ['as'=>'profile','uses'=>'ConsoleController@profile']);
+Route::post('/profile/update', ['as'=>'profile_update','uses'=>'ConsoleController@profile_update']);
+// Route::get('/userinterface', ['as'=>'ui','uses'=>'ConsoleController@ui']);
 Route::get('/resident',['as'=>'resident','uses'=>'ResidentController@index']);
 Route::get('/room',['as'=>'room','uses'=>'ResidentController@room']);
 /*Resident & Room*/

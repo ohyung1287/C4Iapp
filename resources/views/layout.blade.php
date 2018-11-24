@@ -11,9 +11,6 @@
 
     <title>C4I</title>
 
-
-
-   
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" rel="stylesheet">
 
     <!-- Custom fonts for this template-->
@@ -21,7 +18,6 @@
 
 
     <!-- Page level plugin CSS-->
-    <link href="vendor/select2/select2.min.css" rel="stylesheet">
     <link href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css" rel="stylesheet">
     <!-- Using Select2 -->
     <!-- <link href="vendor/select2/select2.min.css" rel="stylesheet"> -->
@@ -55,9 +51,9 @@
           </a>
           <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
             <a class="dropdown-item" href="#">Settings</a>
-            <a class="dropdown-item" href="#">Activity Log</a>
+            <a class="dropdown-item" href="{{route('profile',['id' => Session::get('resident_id')])}}">Profile</a>
             <div class="dropdown-divider"></div>
-            <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">Logout</a>
+            <a class="dropdown-item" data-toggle="modal" data-target="#logoutModal">Logout</a>
           </div>
         </li>
       </ul>
@@ -88,13 +84,7 @@
 <!-- <div id="mysnackbar"></div>
  -->
 @yield('index-content')
-      <footer class="sticky-footer">
-          <div class="container my-auto">
-            <div class="copyright text-center my-auto">
-              <span>Copyright © C4I 2018</span>
-            </div>
-          </div>
-        </footer>
+
       </div>
 
       <!-- /.content-wrapper -->
@@ -106,7 +96,13 @@
     <a class="scroll-to-top rounded" href="#page-top">
       <i class="fas fa-angle-up"></i>
     </a>
-
+<!--       <footer class="sticky-footer" style="margin-top: 10%">
+          <div class="container my-auto">
+            <div class="copyright text-center my-auto">
+              <span>Copyright © C4I 2018</span>
+            </div>
+          </div>
+        </footer> -->
     <!-- Logout Modal-->
     <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
       <div class="modal-dialog" role="document">
@@ -120,7 +116,7 @@
           <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
           <div class="modal-footer">
             <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-            <a class="btn btn-primary" href="{{route('login_page')}}">Logout</a>
+            <a class="btn btn-primary" href="{{route('logout')}}">Logout</a>
           </div>
         </div>
       </div>
@@ -150,6 +146,7 @@
 
 <script type="text/javascript">
   function snackbar(text){
+
     $('#mysnackbar').attr('class','show');
       $('#mysnackbar').html(text);
       setTimeout(function(){  $('#mysnackbar').attr('class','');}, 3000);

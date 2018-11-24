@@ -16,7 +16,7 @@ class ResidentController extends Controller
     public function index(){
         $residents=Residents::orderby('roomid','asc')->get();
         $users = User::where('resident_id','0')->first();
-        $h=Hash::make("1234");
+        // $h=Hash::make("1234");
         // Log::notice($h);
         // Log::notice(Hash::check('1234', $h));
         // foreach ($residents as $resident) {
