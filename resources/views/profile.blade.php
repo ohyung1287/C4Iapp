@@ -54,9 +54,9 @@ body {
                 <img height="50%" width="40%" id="preview" class="thumbnail img-preview" src="{{asset('images/default-user.jpg')}}" title="Preview Logo">
                 @endif
               </div>
-                  <div class="fileUpload btn btn-danger">
-                    <input id="photo" name="photo" type="file">
-                  </div>
+              <div class="fileUpload btn btn-danger">
+                <input id="photo" name="photo" type="file">
+              </div>
           </div>
       </div>
     </div>
