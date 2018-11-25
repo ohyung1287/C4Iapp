@@ -11,9 +11,7 @@
 |
 */
 
-Route::get('/', function () {
-    return view('login');
-});
+Route::get('/', 'LoginController@index');
 
 Route::get('/login', ['as'=>'login_page','uses'=>'LoginController@index']);
 Route::post('/login/login', ['as'=>'login','uses'=>'LoginController@login']);
