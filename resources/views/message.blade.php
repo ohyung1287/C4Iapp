@@ -2,16 +2,14 @@
 @section('index-content')
     <div class="container card mb-3">
         <div class="card-body">
-            <div class="float-right" style="margin-bottom: 5%">
-                <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#modal_search">Search</button>
-            </div>
             <div class="table-responsive">
                 <form id="form_send" method="post" action="{{route('send_email')}}">
+                    <h4 style="text-align: center">Send Email to residents</h4>
                     <div class="modal-body">
                         {{csrf_field()}}
                         <div class="form-group">
-                            <label>Select a resident:</label><br>
-                            <select id="select_resident" name="select_resident" placeholder="Select residents" style="width: 300px;" multiple="multiple">
+                            <label id="test">Select a resident:</label><br>
+                            <select id="select_resident" name="select_resident[]" placeholder="Select residents" style="width: 300px;" multiple="multiple">
                                 <option value=""></option>
                                 @foreach($residents as $one)
                                     <option value="{{$one->email}}">{{$one->roomid}}</option>
@@ -29,7 +27,7 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" id="btn_send" class="btn btn-primary">Send</button>
-                        <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
+                        <button type="button" id="btn_cancle" class="btn btn-danger" >Cancel</button>
                     </div>
                 </form>
             </div>
@@ -40,7 +38,7 @@
     <script type="text/javascript">
         $(document).ready(function(){
             $('#li_message').addClass('active');
-            $('#select_resident').select2();
+            $("#select_resident").select2();
         });
         $(document).on('click','#btn_send',function(){
             var form = $('#form_send');
@@ -57,14 +55,17 @@
                 data: form.serialize(),
                 success: function(data)
                 {
-                    alert('yes');
-                    console.log(data);
+                    alert('Email send to the select resident successfully');
+                    location.reload();
                 },
                 error: function (data) {
                     alert('error');
                     console.log(data);
                 }
             });
+        });
+        $(document).on('click','#btn_cancle',function(){
+            location.reload();
         });
     </script>
     @stop

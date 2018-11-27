@@ -17,11 +17,12 @@ class sendMail extends Mailable
      *
      * @return void
      */
-    public $content;
-    public function __construct(String $content)
+    public $title, $content;
+    public function __construct(String $title,String $content)
     {
         //
-        $this->$content = $content;
+        $this->title = $title;
+        $this->content = $content;
     }
 
     /**

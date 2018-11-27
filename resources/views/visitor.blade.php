@@ -168,10 +168,11 @@
 
                 var string ="";
                 for(var i=0;i<data.length;i++){
-
+                    string+= "<tr>";
                     jQuery.each(data[i],function(){
-                        string+="<tr>"+"<td>"+this+"</td>"+"</tr>";
+                        string+="<td>"+this+"</td>";
                     });
+                    string+= "</tr>";
                 }
                 $('#dataTable').html(string);
                 
@@ -182,7 +183,6 @@
             }
         });
         });
-
 </script>
 
 @stop

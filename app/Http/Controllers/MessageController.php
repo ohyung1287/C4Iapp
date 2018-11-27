@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Mail\sendMail;
+use App\Messages;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Residents;
@@ -18,17 +19,14 @@ class MessageController extends Controller
     }
 
     public function sendMessage(Request $request){
-//        $request->
-//        Mail::
-        Log::notice('hi');
         $address=$request->select_resident;
+        $topic = $request->message_topic;
         $content=$request->message_content;
 
-        foreach($address as $one){
-
-            Mail::to($one)->send(new sendMail($content));
+        foreach($address as $one) {
+            Mail::to($one)->send(new sendMail($topic, $content));
         }
-        return 'Email sending success';
+        return 'email send';
     }
 
 

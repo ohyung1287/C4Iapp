@@ -40,4 +40,7 @@ Route::post('/visitor/search/visitor',['as'=>'search_visitor','uses'=>'VisitorCo
 //Dorothy Hao for Messages
 
 Route::get('/sendForm',['as'=>'send_from','uses'=>'MessageController@index']);
-Route::get('/sendEmail',['as'=>'send_email','uses'=>'MessageController@sendMessage']);
+Route::post('/sendEmail',['as'=>'send_email','uses'=>'MessageController@sendMessage']);
+
+//Dorothy Hao for Parking
+Route::get('/availableParking',['as'=>'parking_space','uses'=>'ParkingController@index']);

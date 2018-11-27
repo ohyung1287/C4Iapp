@@ -170,14 +170,13 @@
   });
   $('#update_id').on('change', function (e) {
     <?php foreach ($residents as $resident): ?>
-      if({{$resident->id}}==$('#update_id').val()){
         $('#update_name').val('{{$resident->name}}');
         $('#update_email').val('{{$resident->email}}');
         $('#update_phone').val('{{$resident->phone}}');
         $('#update_mobile').val('{{$resident->mobile}}');
         
         $('#update_room').val('{{$resident->roomid}}'); 
-      }      
+      }
     <?php endforeach ?>
 });
   $('#update_id').on('select2:select',function(){
@@ -205,7 +204,7 @@
       $.ajax({
         type: "POST",
         url: url,
-        data: form.serialize(), // serializes the form's elements.
+        data: form.serialize(),
         success: function(data)
         {
             console.log(data)

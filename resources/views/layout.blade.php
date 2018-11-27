@@ -129,6 +129,11 @@
                  <i class="fas fa-user"></i>
                  <span>Send Messages</span></a>
          </li>
+         <li id="li_parking" class="nav-item">
+             <a class="nav-link" href="{{route('parking_space')}}">
+                 <i class="fas fa-user"></i>
+                 <span>Available Parking</span></a>
+         </li>
          <li id="li_rooms" class="nav-item">
              <a class="nav-link" href="{{route('room')}}">
                  <i class="fas fa-door-open"></i>
