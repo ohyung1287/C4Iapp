@@ -11,4 +11,7 @@ class Repair extends Model
     public $primaryKey = 'id';
 
     public $timestamps = true;
+
+
+
 }
