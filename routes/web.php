@@ -11,7 +11,10 @@
 |
 */
 
-Route::get('/', 'LoginController@index');
+//Route::get('/', 'LoginController@index');
+Route::get('/', function () {
+    return view('index');
+});
 
 Route::get('/login', ['as'=>'login_page','uses'=>'LoginController@index']);
 Route::post('/login/login', ['as'=>'login','uses'=>'LoginController@login']);
@@ -77,3 +80,6 @@ Route::get('/facility_booking',['as'=>'facility_booking','uses'=>'FacilityBookin
 Route::post('/facility_booking/add/facility_booking',['as'=>'add_facility_booking','uses'=>'FacilityBookingController@add_facility_booking']);
 Route::post('/facility_booking/update/facility_booking',['as'=>'update_facility_booking','uses'=>'FacilityBookingController@update_facility_booking']);
 Route::get('/facility_booking/delete/facility_booking',['as'=> 'delete_facility_booking','uses'=>'FacilityBookingController@delete_facility_booking']);
+
+//repair posts
+Route::resource('repair','RepairController');
