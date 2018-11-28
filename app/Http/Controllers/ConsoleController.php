@@ -55,7 +55,7 @@ class ConsoleController extends Controller
     }
     public function console(Request $request){
     	if($request->session()->get('resident_id')>0)
-    	   return view('userinterface');
+        return view('userinterface');
     	else if($request->session()->get('resident_id')==-1)
     		return view('index');
   		else return redirect('error');
