@@ -44,6 +44,8 @@ class RepairController extends Controller
             'repairTitle' => 'required',
             'repairDetail' => 'required',
             'repairTime' => 'required'
+
+
         ]);
         $repairs = new Repair;
         $repairs -> name = $request -> input('name');
