@@ -15,7 +15,7 @@ class AddPhotoInResidentsTable extends Migration
     {
         Schema::table('residents', function (Blueprint $table) {
             //
-            $table->string('photo');
+            $table->string('photo')->nullable();
         });
     }
 
