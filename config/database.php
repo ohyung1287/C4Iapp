@@ -45,12 +45,12 @@ return [
 
         'mysql' =>[
             'driver' => 'mysql',
-            'host' => env('DB_HOST', 'db4free.net'),
-            'port' => env('DB_PORT', '3306'),
-            'database' => env('DB_DATABASE', 'c4iapp'),
-            'username' => env('DB_USERNAME', 'ohyung1287'),
-            'password' => env('DB_PASSWORD', 'nick1993'),
-            'unix_socket' => env('DB_SOCKET', ''),
+            'host' => 'db4free.net',
+            'port' => '3306',
+            'database' => 'c4iapp',
+            'username' => 'ohyung1287',
+            'password' => 'nick1993',
+            'unix_socket' => '',
             'charset' => 'utf8mb4',
             'collation' => 'utf8mb4_unicode_ci',
             'prefix' => '',
